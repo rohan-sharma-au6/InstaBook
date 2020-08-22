@@ -11,6 +11,7 @@ module.exports = {
             .then(user => {
                 Post.find({ postedBy: req.params.id })
                     .populate("postedBy", "_id name profilePic ")
+                    .sort('-createdAt')
                     .exec((err, post) => {
                         if (err) {
                             return res.json({ error: err })

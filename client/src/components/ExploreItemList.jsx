@@ -52,13 +52,7 @@ class ExploreItemList extends Component {
             })
         }).then(res => res.json())
             .then(result => {
-               const post = this.state.caption.map(data=>{
-                   if(data._id=== result._id){
-                       return result
-                   }else {
-                       return result
-                   }
-               })
+               
 
                 this.setState({ likes: result.likes })
 
@@ -103,10 +97,26 @@ class ExploreItemList extends Component {
                 console.log(err)
             })
     }
+    timer(timeStamp) {
+
+        // variables
+        var createdTime = new Date(timeStamp) / 60000
+        var currentTime = new Date() / 60000
+    
+        // total time since created
+        var time = ((currentTime - createdTime) / 60)
+        time = time.toFixed(2)
+    
+        // converting time into min, hrs & days respectively
+        if (time < 1) return `${parseInt(time/0.016)} mins ago`
+        else if (time >= 1 && time < 24) return `${parseInt(time)} hrs ago`
+        else if (time > 24) return `${parseInt(time/24)} days ago`
+    }
     render() {
-        const curruser = this.context
-        const { isLightTheme, light, dark } = this.context
+  
+        const { isLightTheme, light, dark,curruser } = this.context
         const theme = isLightTheme ? light : dark
+        
         
         const getPost = (postid) => {
 
@@ -154,7 +164,7 @@ class ExploreItemList extends Component {
                                 title="Post Details"
                                 {...this.state}
                             >
-                                <div className="big-card" style={{ background: theme.ui, color: theme.syntax }}>
+                                <div className="big-card" style={{ background: theme.ib, color: theme.syntax }}>
                                     <img style={{ width: "500px", height: "500px",border: theme.bor }} src={this.state.posts.picture} alt="" />
                                     <div className="post-details" style={{ background: theme.ui, color: theme.syntax, width: "400px", border: "#ccc 1px solid", padding: "10px" }}>
                                         <div className="user-info" style={{ marginLeft: "10px", background: theme.ui, color: theme.syntax }} >
@@ -167,9 +177,9 @@ class ExploreItemList extends Component {
                                         <div style={{ marginLeft: "10px", background: theme.ui, color: theme.syntax  }}>
                                             <p><b>{this.state.postuser.name}</b>  {this.state.posts.caption}</p>
                                             <p style={{ color: "grey" }}>total comments: {this.state.comments.length}</p>
-                                            <div  style={{height:"150px",overflowY:"scroll",border:theme.bor,padding:"5px"}}> {this.state.comments.map(comment => (
+                                            <div  style={{height:"150px",overflowY:"scroll",background: theme.ib,border:theme.bor,padding:"5px"}}> {this.state.comments.map(comment => (
                                                 
-                                                    <li key={comment._id} ><b>{comment.postedBy.name}</b>  {comment.text}</li>
+                                                    <li key={comment._id} ><Link to={curruser._id===comment.postedBy._id ?"/profile":`/user/${comment.postedBy._id}`} ><b>{comment.postedBy.name}</b></Link>  {comment.text}</li>
                                                 
                                                 
                                             ))}
@@ -191,7 +201,7 @@ class ExploreItemList extends Component {
                                             </form>
                                             <hr />
                                         </div>
-
+                                        <div className="instagram-card-time">{this.timer(this.state.posts.createdAt)}</div>
                                     </div>
 
 
@@ -199,7 +209,7 @@ class ExploreItemList extends Component {
                                 <div className={Classes.DIALOG_FOOTER}>
                                     <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                                         <Tooltip content="This button is hooked up to close the dialog.">
-                                            <Button onClick={handleClose}>Close</Button>
+                                            <Button style={{marginTop:"5px"}} onClick={handleClose}>Close</Button>
                                         </Tooltip>
                                     </div>
                                 </div>

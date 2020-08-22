@@ -1,10 +1,12 @@
 .buttons{
     display:flex;
     flex-direction: row;
-    margin-left: auto;
+    margin-left: 150px;
     margin-right: auto;
-    width:250px
-    
+    width:250px;
+    position: absolute;
+    top:550px;
+   
 }
 
 .glow-on-hover {
@@ -56,7 +58,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background:orangered;
+    background:blueviolet;
     left: 0;
     top: 0;
     border-radius: 10px;
@@ -72,6 +74,7 @@
     display: flex;
     flex-direction: row;
     margin-top: 50px;
+    overflow: hidden;
     
 }
 
@@ -79,14 +82,21 @@
     width:100vw;
     height: 700px;
 }
-.left{
+.left-img{
     position: absolute;
-    top:100px;
-    height:500px;
-    width:400px;
-    background-color: #00A799;
-    left:100px;
+    top:50px;
+   
+    width:340px;
+    background-color: transparent;
+    left:580px;
     box-shadow: 5px 5px 20px;
+    opacity: 1;
+    font-family: 'Grand Hotel', cursive;
+    background: linear-gradient(to right, violet 0%, purple 20%, blue 40%, green 50%, yellow 60%, orange 70%, red 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: none;
+    padding:10px
 
 }
 .anc{

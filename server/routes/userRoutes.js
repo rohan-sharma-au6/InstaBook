@@ -8,4 +8,6 @@ router.post("/login",userRoutes.login);
 router.post("/logout",authenticate,userRoutes.logout);
 router.get("/current",authenticate,userRoutes.getUser)
 router.post("/update/:id",userRoutes.updateUser)
+router.post("/reset",userRoutes.resetPassword)
+router.post("/new",userRoutes.newPassword)
 module.exports = router;

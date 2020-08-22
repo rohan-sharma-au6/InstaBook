@@ -62,7 +62,7 @@ const Signup = () => {
                 }
                 else
                 {toast.success("Registered Successfully")
-                history.push("/")}
+                history.push("/login")}
                 
             }).catch(err=>{
                 console.log(err)
@@ -70,7 +70,6 @@ const Signup = () => {
 
     }
 
-    
     const register=()=>{
         if(image){
             upload()

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "../style/profile.css"
 import { ThemeContext } from '../contexts/ThemeContext';
-import { Button, Intent, Popover, PopoverInteractionKind, Position,Icon } from "@blueprintjs/core";
+import { Intent, Icon } from "@blueprintjs/core";
 
 class Saved extends Component {
     static contextType = ThemeContext
@@ -29,7 +29,7 @@ class Saved extends Component {
         const theme = isLightTheme ? light : dark
 
         return (
-            <div className="container1" style={{ background: theme.ui, height: "100vw" }}>
+            <div className="container1" style={{ background: theme.ib, height: "100vw" }}>
                 <section>
                     <div className="pic-grid" style={{ marginTop: '50px' }}>
                         <div className="wrapper">

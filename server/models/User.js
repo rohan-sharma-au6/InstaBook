@@ -27,12 +27,8 @@ const userSchema = new Schema({
         type: String,
         default: ""
     },
-    // resetToken: {
-    //     type: String
-    // },
-    // expireToken:{
-    //     type:Date
-    // },
+    resetToken:String,
+    expireToken:Date,
     followers: [
         {
             type: Schema.Types.ObjectId,
@@ -62,18 +58,6 @@ const userSchema = new Schema({
 },
     { timestamps: true })
 
-userSchema.pre("save", function (next) {
-    var user = this
-    if (user.isModified("password")) {
-        bcrypt.hash(user.password, 10).then(function (hased) {
-            user.password = hased
-            next();
-
-        }).catch(function (err) {
-            next(err);
-        })
-    }
-})
 
 
 const User = mongoose.model("user", userSchema);

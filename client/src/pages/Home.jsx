@@ -89,7 +89,7 @@ class Home extends Component {
             .then(result => {
                 console.log(result)
                 const post = this.state.caption.map(data => {
-                    if (data._id == result._id) {
+                    if (data._id === result._id) {
                         return result
                     } else {
                         return data
@@ -114,7 +114,7 @@ class Home extends Component {
             .then(result => {
                 console.log(result)
                 const post = this.state.caption.map(data => {
-                    if (data._id == result._id) {
+                    if (data._id === result._id) {
                         return result
                     } else {
                         return data
@@ -122,6 +122,21 @@ class Home extends Component {
                 })
                 this.setState({ caption: post })
             })
+    }
+     timer(timeStamp) {
+
+        // variables
+        var createdTime = new Date(timeStamp) / 60000
+        var currentTime = new Date() / 60000
+    
+        // total time since created
+        var time = ((currentTime - createdTime) / 60)
+        time = time.toFixed(2)
+    
+        // converting time into min, hrs & days respectively
+        if (time < 1) return `${parseInt(time/0.016)} mins ago`
+        else if (time >= 1 && time < 24) return `${parseInt(time)} hrs ago`
+        else if (time > 24) return `${parseInt(time/24)} days ago`
     }
 
     addComment = (text, postId) => {
@@ -159,13 +174,13 @@ class Home extends Component {
         const theme = isLightTheme ? light :dark
         return (
             (<div style={{ marginTop: "70px" }}>
-                {this.state.caption===null ?<div style={{marginTop:"200px",margin:"0 auto"}} className="loader" >Loading...</div>:this.state.caption.map(item => (
+                {this.state.caption===null||this.state.caption.length===0 ?<><div style={{marginTop:"400px",margin:"0 auto"}} className="loader" >Loading...</div><h1 className="bp3-navbar-heading">No Post</h1></>:this.state.caption.map(item => (
                     <div key={item._id} >
                         <div style={{ margin: "40px auto",background:theme.ui,color:theme.syntax, border:theme.ui }} className="instagram-card">
                             <div className="instagram-card-header">
-                                <img style={{ float: "left",border:theme.ui }} src={item.postedBy.profilePic} className="instagram-card-user-image" />
+                                <img style={{ float: "left",border:theme.ui }} src={item.postedBy.profilePic} className="instagram-card-user-image" alt="" />
                                 <Link to={item.postedBy._id === this.state.user._id ? '/profile' : `/user/${item.postedBy._id}`} style={{ float: "left", marginTop: "7px",color:theme.head }} className="instagram-card-user-name" >{item.postedBy.name}</Link>
-                                <div className="instagram-card-time">{parseInt((((new Date() / 60000) - (new Date(item.createdAt) / 60000)) / 60))} hr ago</div>
+                                <div className="instagram-card-time">{this.timer(item.createdAt)}</div>
                                 {/* if hrs>24  than days,
                                 if min 60> than hrs 
                                  */}

@@ -69,6 +69,7 @@ class Profilepost extends Component {
                 this.setState({ likes: result.likes })
             })
     }
+    
     addComment = (text, postId) => {
         fetch("http://localhost:8080/addcomment", {
             method: "put",
@@ -89,6 +90,21 @@ class Profilepost extends Component {
             }).catch(err => {
                 console.log(err)
             })
+    }
+    timer(timeStamp) {
+
+        // variables
+        var createdTime = new Date(timeStamp) / 60000
+        var currentTime = new Date() / 60000
+    
+        // total time since created
+        var time = ((currentTime - createdTime) / 60)
+        time = time.toFixed(2)
+    
+        // converting time into min, hrs & days respectively
+        if (time < 1) return `${parseInt(time/0.016)} mins ago`
+        else if (time >= 1 && time < 24) return `${parseInt(time)} hrs ago`
+        else if (time > 24) return `${parseInt(time/24)} days ago`
     }
     render() {
         const curruser = this.context
@@ -153,7 +169,7 @@ class Profilepost extends Component {
                                         <div style={{ marginLeft: "10px", background: theme.ui, color: theme.syntax }}>
                                             <p><b>{this.state.user.name}</b>  {this.state.posts.caption}</p>
                                             <p style={{ color: "grey" }}>total comments: {this.state.comments.length}</p>
-                                            <div style={{ height: "150px", overflowY: "scroll",border:theme.bor,padding:"5px" }}> {this.state.comments.map(comment => (
+                                            <div style={{ height: "150px", overflowY: "scroll",border:theme.bor,padding:"5px",background: theme.ib }}> {this.state.comments.map(comment => (
 
                                                 <li key={comment._id} ><b>{comment.postedBy.name}</b>  {comment.text}</li>
 
@@ -177,17 +193,18 @@ class Profilepost extends Component {
                                                 <input type="text" placeholder="add comments" />
                                             </form>
                                             <hr />
+                                            <div className="instagram-card-time">{this.timer(this.state.posts.createdAt)}</div>
                                         </div>
-                                        <button onClick={(e) => { { this.deletepost(this.state.posts._id); handleClose() } }}>delete</button>
+                                        <Button style={{marginTop:"5px"}} onClick={(e) => { { this.deletepost(this.state.posts._id); handleClose() } }}>Delete</Button>
 
                                     </div>
-
+                                    
 
                                 </div>
                                 <div className={Classes.DIALOG_FOOTER}>
                                     <div className={Classes.DIALOG_FOOTER_ACTIONS}>
                                         <Tooltip content="This button is hooked up to close the dialog.">
-                                            <Button onClick={handleClose}>Close</Button>
+                                            <Button style={{marginTop:"5px"}} onClick={handleClose}>Close</Button>
                                         </Tooltip>
                                     </div>
                                 </div>

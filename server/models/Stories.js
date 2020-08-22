@@ -16,7 +16,8 @@ const storiesSchema = new Schema({
     createdAt: {
         type: Date,
         default: Date.now(),
-        expires: 3600
+        expires: Date.now() + 360000000
+        
     }
 },
 

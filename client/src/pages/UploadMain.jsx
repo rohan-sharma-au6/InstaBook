@@ -1,7 +1,6 @@
-import React,{useContext} from 'react';
+import React from 'react';
 import UploadMedia from "./Upload"
 import UploadStory from "./UploadStory"
-import {ThemeContext} from "../contexts/ThemeContext"
 
 
 const UploadMain = () => {

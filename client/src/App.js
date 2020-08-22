@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from "react-router-dom"
 import './App.css';
 import Navbar from './components/Navbar.jsx';
@@ -16,7 +16,8 @@ import Stories from "./components/Stories"
 import ThemeContextProvider from "./contexts/ThemeContext"
 import LandingPage from './pages/LandingPage';
 import EditProfile from './pages/EditProfile';
-
+import ResetPassword from './pages/ResetPassword';
+import NewPassword from "./pages/NewPassword"
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
                 <Route path="/addstory" exact component={Uploadstory}/>
                 <Route path="/seestory" exact component={Stories}/>
                 <Route path="/edit" exact component={EditProfile}/>
+                <Route path ="/reset" exact component={ResetPassword}/>
+                <Route path="/reset/:token" exact component={NewPassword}/>
             </Switch>
             </ThemeContextProvider>
         </CurrentuserContext>

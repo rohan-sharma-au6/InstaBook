@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import { toast } from "react-toastify"
 import "../style/login.css"
 
@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPasword] = useState("")
     const [email, setEmail] = useState("")
     const history = useHistory()
-    const login = () => {
+    const login1 = () => {
 
         fetch("http://localhost:8080/login",
             {
@@ -38,10 +38,9 @@ const Login = () => {
                             draggable: false,
                             position: toast.POSITION.TOP_CENTER
                         })
-
+                        history.push('/home')
                         localStorage.setItem("jwt", data.token)
                         localStorage.setItem("user", JSON.stringify(data.savedUser))
-                        history.push("/home")
                         window.location.reload()
 
                     }
@@ -60,9 +59,9 @@ const Login = () => {
             <div className="form">
                 <input placeholder='Email' type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
                 <input placeholder='Password' type="password" value={password} onChange={(e) => setPasword(e.target.value)} />
-                <div onClick={(e) => { e.preventDefault(); login(); }} className="login">login</div>
+                <div onClick={(e) => { e.preventDefault(); login1(); }} className="login">login</div>
             </div>
-            <div className="fack"><a href="#"><i className="fa fa-question-circle"></i>Forgot password?</a></div>
+            <div className="fack"><Link to={'/reset'}><i className="fa fa-question-circle"></i>Forgot password?</Link></div>
         </div>
 
     );
